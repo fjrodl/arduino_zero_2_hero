@@ -1,17 +1,36 @@
 #include <Arduino.h>
 #include <tipos.h>
 
+#if !defined(ARRAY_SIZE)
+    #define ARRAY_SIZE(x) (sizeof((x)) / sizeof((x)[0]))
+#endif
+
+
+
+
+
+
 void imprimirMensajes(void);
 void setearVariables(void);
 void setearVariablesStruct(void);
 void setearVariablesSimples(void);
 void convertirTipos (void);
+void setearVariablesString(void);
+void doubleStringSize(void);
+
+size_t medirCadenasSizeOf (String);
+size_t medirCadenasTextString (String);
+size_t medirCadenasStrlen(String,size_t);
 
 void setup() {
+  Serial.begin(9600);
+
   setearVariables();
   setearVariablesStruct();
   setearVariablesSimples();
   imprimirMensajes();
+  setearVariablesString();
+  
 }
 
 void loop() {
@@ -20,7 +39,7 @@ void loop() {
 
 void imprimirMensajes(void){
   delay(1000);
-  Serial.begin(9600);
+ 
   // por defecto todas las banderas son false
   // hacer referencia a una estructura
   // podemos cambiar y trabajar como con banderas ordinarias
@@ -88,3 +107,87 @@ void convertirTipos(){
   int nuevoVal = ( int ) val ; 
   nuevoVal +=  1000;
 }
+
+void setearVariablesString(void){
+  String cadena0 = "Mi Primera Cadena con String" ;
+  String cadena1 = String ( "lol" ) + String ( "kek" ) ; 
+  
+  String cadena2 = String ( 'b' ) ;                
+  
+  String cadena3 = String ( "Mi segunda cadena " ) ;  
+  String cadena4 = String ( cadena3 + "otra " ) ;  
+  String cadena5 = String ( 13 ) ;               
+  String cadena6 = String ( 20, DEC ) ;          
+  String cadena7 = String ( 45, HEX ) ;          
+  String cadena8 = String ( 255, BIN ) ;         
+  String cadena9 = String ( 5.698 , 3 ) ;        
+  
+  // las cadenas se pueden agregar entre sí
+  String cadena10 = cadena0 + cadena4;         
+ 
+  // puede formar un nombre a partir de piezas
+  #define NAME "fichero"
+  #define TYPE "-fecha"
+  #define EXT ".txt"
+    
+  String nombreFichero = String(NAME) + TYPE + EXT; 
+
+  //Ejemplo simple
+
+  Serial.println(cadena3);
+  cadena3 [ 2 ] = 'b' ; 
+  Serial.println(cadena3);
+  Serial.println(medirCadenasSizeOf(cadena3));
+  Serial.println(medirCadenasTextString(cadena3));
+  Serial.println(medirCadenasStrlen(miCadenita, ARRAY_SIZE(miCadenita)));
+  doubleStringSize();
+}
+
+size_t medirCadenasSizeOf(String textString){
+  
+  return sizeof(textString); 
+
+}
+
+
+size_t medirCadenasTextString(String textString){
+  
+  
+  return textString.length();  
+}
+
+
+size_t medirCadenasStrlen(String textString, size_t totalTamanyo){
+  
+  char charBuf[totalTamanyo];
+  textString.toCharArray(charBuf, totalTamanyo);
+  Serial.println("STRLEN");
+  Serial.println(charBuf);
+  return strlen(charBuf);  
+}
+
+
+
+
+void doubleStringSize(){
+  
+  int totalLength = sizeof(misCadenas);
+  
+  Serial.print(F("El tamanyo del array es "));
+  Serial.println(totalLength);
+  
+  for (byte idx = 0; idx < sizeof(misCadenas) / sizeof(misCadenas[0]); idx++) {
+    int thisLength = strlen(misCadenas[idx]) + 1;
+    Serial.print(F("La longitud de la cadena "));
+    Serial.print(idx);
+    Serial.print(F(" es "));
+    Serial.println(thisLength);
+    totalLength += thisLength;
+  }
+  
+  Serial.print(F("El numeros de elementos total es ==>"));
+  Serial.println(totalLength);
+
+}
+
+

@@ -18,3 +18,10 @@ struct MyFlags {
 MyFlags flags;
 
 const byte myConst = 10; // declara una constante de tipo byte
+
+char* misCadenas[] = {"Cadena == 1", "Cadena == 2", "Cadena == 3",
+                     "Cadena == 4", "Cadena == 5", "Cadena == 6"
+                    };
+
+                    
+String miCadenita = {"Cadena == 1"};
