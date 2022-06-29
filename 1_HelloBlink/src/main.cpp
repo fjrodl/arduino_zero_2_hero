@@ -2,8 +2,8 @@
 /*
 Blink
 Turns on an LED on for one second, then off for one second, repeatedly.
-  
-This example code is in the public domain.
+
+Example: https://docs.arduino.cc/built-in-examples/basics/Blink
 */
 void gestionarLed();
 void encenderLed(int pin);
