@@ -3,12 +3,14 @@
 
 void imprimirMensajes(void);
 void setearVariables(void);
-void setearVariables2(void);
-void setearVariables3(void);
+void setearVariablesStruct(void);
+void setearVariablesSimples(void);
+void convertirTipos (void);
 
 void setup() {
   setearVariables();
-  setearVariables2();
+  setearVariablesStruct();
+  setearVariablesSimples();
   imprimirMensajes();
 }
 
@@ -32,7 +34,7 @@ void setearVariables(void){
 // declaramos una estructura de tipo MyFlags
 //  MyFlags flags;
 }
-void setearVariables2(void){
+void setearVariablesStruct(void){
   myStruct data_B [ 3 ] ;
 
  // asigna valores a los miembros de la estructura manualmente
@@ -53,7 +55,7 @@ void setearVariables2(void){
     false , 30, 3200, 321654, { 1, 2, 3, 4, 5 }
   };
 } 
-void setearVariables3(){
+void setearVariablesSimples(void){
 
 // UINT8_MAX - devolverá 255
 // INT8_MAX - volverá 127
@@ -70,9 +72,19 @@ void setearVariables3(){
   byte val1, val2, val3 = 10;
 }
 
+void setearVariablesArray(void){
+  
+  int miArray[5];
+  
+  miArray[3] = 10;
+
+}
+
+
 void convertirTipos(){
   // variable de tipo byte
   byte val = 10;
-  // pasar a alguna función que espera un int
+ 
   int nuevoVal = ( int ) val ; 
+  nuevoVal +=  1000;
 }
